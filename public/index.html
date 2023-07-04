@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trucking Repairs</title>
+    <link
+      rel="stylesheet"
+      href="/Users/armaanchhina/Desktop/HTML/part 1/CSS/normalize.css"
+    />
+    <link rel="stylesheet" href="static/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Sofia"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+
+    <!-- <link href="/dist/output.css" rel="stylesheet" /> -->
+  </head>
+  <body>
+    <nav
+      class="fixed top-0 w-full z-10 flex items-center justify-between p-6 bg-blue-500"
+    >
+      <h1 class="relative block font-bold text-center text-white">
+        Tractor Repair Database
+      </h1>
+      <div class="relative">
+        <form class="flex items-cente justify-end">
+          <select
+            id="categorySelect"
+            class="py-2 px-3 mr-4 text-gray-700 focus:outline-none bg-white rounded-md"
+          >
+            <option value="">--Choose a category--</option>
+            <option value="insert">Insert</option>
+            <option value="get">Get</option>
+          </select>
+          <select
+            id="optionSelect"
+            disabled
+            class="py-2 px-3 mr-4 text-gray-700 focus:outline-none bg-white rounded-md"
+          >
+            <option value="">--Choose an option--</option>
+          </select>
+          <button
+            href="#"
+            id="goButton"
+            class="ml-0 py-2 px-4 font-light bg-blue-500 text-white rounded-md hover:text-black cursor-pointer disabled:text-white"
+            style="visibility: hidden"
+          >
+            Go to section
+          </button>
+        </form>
+      </div>
+      <div class="flex items-center">
+        <a href="#" class="mr-6 text-white hover:text-blue-300"
+          ><span>Home</span></a
+        >
+        <a href="/respone.html" class="mr-6 text-white hover:text-blue-300"
+          ><span>About</span></a
+        >
+        <a href="#" class="text-white hover:text-blue-300"><span>FAQ</span></a>
+        <a
+          href="login.html"
+          class="ml-4 px-4 py-2 bg-white text-blue-500 rounded-md"
+          >Login</a
+        >
+      </div>
+    </nav>
+    <!-- <div>
+      <h1
+        class="block text-4xl font-bold text-center text-blue-500 mt-24 bg-gray-100"
+      >
+        Tractor Repair Database
+      </h1>
+    </div> -->
+
+    <div
+      id="inputInfo"
+      class="flex flex-col items-center justify-center min-h-screen bg-gray-100 pt-28"
+    >
+      <!-- <img id="inputInfo-img" src="images/sobeyslogo.png" alt="" /> -->
+      <h2 id="insert-new-tractor-info" class="header">
+        Insert New Tractor Information
+      </h2>
+      <form
+        id="tractorForm"
+        class="w-full max-w-md"
+        action="/insert_tractor"
+        method="post"
+      >
+        <div class="mb-4">
+          <label class="labelFormat" for="assetID"> Asset ID: </label>
+          <input
+            class="inputForm"
+            id="assetID"
+            type="number"
+            placeholder="Asset ID"
+            name="assetID"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="vin"> VIN: </label>
+          <input
+            class="inputForm"
+            id="vin"
+            type="number"
+            placeholder="VIN"
+            name="vin"
+          />
+        </div>
+        <div class="mb-6">
+          <label class="labelFormat" for="inspectionDate">
+            Inspection Date:
+          </label>
+          <input
+            class="inputForm"
+            id="inspectionDate"
+            type="date"
+            name="inspectionDate"
+            required
+          />
+        </div>
+        <div class="flex items-center justify-between">
+          <input class="btn mb-6" type="submit" value="Submit" />
+        </div>
+      </form>
+
+      <h2 id="insert-repair-info" class="header">
+        Insert New Repair Information
+      </h2>
+      <form
+        id="repairForm"
+        class="w-full max-w-md"
+        action="/insert_repair"
+        method="post"
+      >
+        <div class="mb-4">
+          <label class="labelFormat" for="repairId">Repair ID:</label><br />
+          <input
+            class="inputForm"
+            type="number"
+            id="repairId"
+            name="repairId"
+            required
+          /><br />
+        </div>
+
+        <div class="mb-4">
+          <label class="labelFormat" for="repairAssetID">Asset ID:</label><br />
+          <input
+            class="inputForm"
+            type="number"
+            id="repairAssetID"
+            name="repairAssetID"
+            required
+          /><br />
+        </div>
+
+        <div class="mb-4">
+          <label class="labelFormat" id="repairDate">Repair Data:</label><br />
+          <input
+            class="inputForm"
+            type="date"
+            name="repairDate"
+            id="repairDate"
+            required
+          /><br />
+        </div>
+
+        <div class="mb-4">
+          <label class="labelFormat" id="cost">Repair Cost:</label><br />
+          <input
+            class="inputForm"
+            type="number"
+            name="cost"
+            id="cost"
+            required
+          /><br />
+        </div>
+
+        <div class="mb-4">
+          <label class="labelFormat" id="repairType">Repair Type:</label>
+          <input
+            class="inputForm"
+            type="text"
+            name="repairType"
+            id="repairType"
+            required
+          /><br />
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <input class="btn" type="submit" value="Submit" />
+        </div>
+      </form>
+
+      <h2 id="get-repair-info" class="header">Get Repair Information</h2>
+      <form
+        id="repairInfo"
+        class="w-full max-w-md"
+        action="/get_repair"
+        method="post"
+      >
+        <div class="mb-4">
+          <label class="labelFormat" id="repairInfoAssetId">Asset ID: </label
+          ><br />
+          <input
+            class="inputForm"
+            type="number"
+            id="repairInfoAssetId"
+            name="repairInfoAssetId"
+            placeholder="Enter Asset ID"
+            required
+          /><br />
+        </div>
+
+        <div class="mb-4">
+          <label class="labelFormat" id="repairYear">Repair Year</label>
+          <input
+            class="inputForm"
+            type="date"
+            name="repairYear"
+            id="repairYear"
+          />
+        </div>
+        <div class="mb-4">
+          <input class="btn" type="submit" value="Submit" />
+        </div>
+      </form>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>

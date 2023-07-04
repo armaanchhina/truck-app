@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Sofia"
+    />
+  </head>
+  <body class="flex items-center justify-center min-h-screen bg-white">
+    <nav
+      class="fixed top-0 w-full z-10 flex items-center justify-between p-6 bg-blue-500"
+    >
+      <h1 class="relative block font-bold text-center text-white">
+        Tractor Repair Database
+      </h1>
+
+      <div class="flex items-center">
+        <a href="index.html" class="mr-6 text-white hover:text-blue-300"
+          ><span>Home</span></a
+        >
+        <a href="/respone.html" class="mr-6 text-white hover:text-blue-300"
+          ><span>About</span></a
+        >
+        <a href="#" class="text-white hover:text-blue-300"><span>FAQ</span></a>
+      </div>
+    </nav>
+    <div class="w-full max-w-md p-10 bg-white shadow-md rounded">
+      <h1 class="text-2xl font-bold text-center text-blue-500 mb-5">Login</h1>
+      <form action="/path-to-your-login-api" method="POST">
+        <div class="mb-6">
+          <label for="username" class="labelFormat block mb-2">Username</label>
+          <input
+            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="username"
+            type="text"
+            placeholder="username"
+          />
+        </div>
+        <div class="mb-8">
+          <label for="password" class="labelFormat block mb-2">Password</label>
+          <input
+            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
+            type="password"
+            placeholder="********"
+          />
+        </div>
+        <div class="flex flex-col items-center justify-between">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none w-full mb-4"
+          >
+            Sign In
+          </button>
+          <a
+            href="#"
+            class="block text-blue-500 text-center hover:text-blue-800"
+            >Forgot Password?</a
+          >
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
