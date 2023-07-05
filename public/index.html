@@ -7,7 +7,7 @@
     <title>Trucking Repairs</title>
     <link
       rel="stylesheet"
-      href="/Users/armaanchhina/Desktop/HTML/part 1/CSS/normalize.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     <link rel="stylesheet" href="static/css/styles.css" />
     <link
@@ -22,8 +22,6 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
-
-    <!-- <link href="/dist/output.css" rel="stylesheet" /> -->
   </head>
   <body>
     <nav
@@ -33,7 +31,7 @@
         Tractor Repair Database
       </h1>
       <div class="relative">
-        <form class="flex items-cente justify-end">
+        <form class="flex items-center justify-end">
           <select
             id="categorySelect"
             class="py-2 px-3 mr-4 text-gray-700 focus:outline-none bg-white rounded-md"
@@ -68,25 +66,17 @@
         >
         <a href="#" class="text-white hover:text-blue-300"><span>FAQ</span></a>
         <a
-          href="login.html"
+          href="/login"
           class="ml-4 px-4 py-2 bg-white text-blue-500 rounded-md"
           >Login</a
         >
       </div>
     </nav>
-    <!-- <div>
-      <h1
-        class="block text-4xl font-bold text-center text-blue-500 mt-24 bg-gray-100"
-      >
-        Tractor Repair Database
-      </h1>
-    </div> -->
 
     <div
       id="inputInfo"
       class="flex flex-col items-center justify-center min-h-screen bg-gray-100 pt-28"
     >
-      <!-- <img id="inputInfo-img" src="images/sobeyslogo.png" alt="" /> -->
       <h2 id="insert-new-tractor-info" class="header">
         Insert New Tractor Information
       </h2>
@@ -97,7 +87,7 @@
         method="post"
       >
         <div class="mb-4">
-          <label class="labelFormat" for="assetID"> Asset ID: </label>
+          <label class="labelFormat" for="assetID">Asset ID:</label>
           <input
             class="inputForm"
             id="assetID"
@@ -108,24 +98,100 @@
           />
         </div>
         <div class="mb-4">
-          <label class="labelFormat" for="vin"> VIN: </label>
+          <label class="labelFormat" for="vin">VIN:</label>
           <input
             class="inputForm"
             id="vin"
-            type="number"
+            type="text"
             placeholder="VIN"
             name="vin"
+            required
           />
         </div>
-        <div class="mb-6">
-          <label class="labelFormat" for="inspectionDate">
-            Inspection Date:
-          </label>
+        <div class="mb-4">
+          <label class="labelFormat" for="inspectionDate"
+            >Inspection Date:</label
+          >
           <input
             class="inputForm"
             id="inspectionDate"
             type="date"
             name="inspectionDate"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="licence">Licence Plate Number:</label>
+          <input
+            class="inputForm"
+            id="licence"
+            type="text"
+            placeholder="Licence Plate Number"
+            name="licence"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="cvipDate">CVIP Date:</label>
+          <input
+            class="inputForm"
+            id="cvipDate"
+            type="date"
+            name="cvipDate"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="year">Year:</label>
+          <input
+            class="inputForm"
+            id="year"
+            type="number"
+            placeholder="Year"
+            name="year"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="model">Model:</label>
+          <input
+            class="inputForm"
+            id="model"
+            type="text"
+            placeholder="Model"
+            name="model"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="axle">Axle:</label>
+          <select id="axle" name="axle" class="inputForm" required>
+            <option value="">-- Select Axle --</option>
+            <option value="Single">Single Axle</option>
+            <option value="Tandem">Tandem Axle</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="lastServiceDate"
+            >Last Service Date:</label
+          >
+          <input
+            class="inputForm"
+            id="lastServiceDate"
+            type="date"
+            name="lastServiceDate"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="lastTireReplaceDate"
+            >Last Tire Replace Date:</label
+          >
+          <input
+            class="inputForm"
+            id="lastTireReplaceDate"
+            type="date"
+            name="lastTireReplaceDate"
             required
           />
         </div>
@@ -144,60 +210,57 @@
         method="post"
       >
         <div class="mb-4">
-          <label class="labelFormat" for="repairId">Repair ID:</label><br />
+          <label class="labelFormat" for="repairId">Repair ID:</label>
           <input
             class="inputForm"
             type="number"
             id="repairId"
             name="repairId"
             required
-          /><br />
+          />
         </div>
-
         <div class="mb-4">
-          <label class="labelFormat" for="repairAssetID">Asset ID:</label><br />
+          <label class="labelFormat" for="repairAssetID">Asset ID:</label>
           <input
             class="inputForm"
             type="number"
             id="repairAssetID"
             name="repairAssetID"
             required
-          /><br />
+          />
         </div>
-
         <div class="mb-4">
-          <label class="labelFormat" id="repairDate">Repair Data:</label><br />
+          <label class="labelFormat" for="repairDate">Repair Date:</label>
           <input
             class="inputForm"
             type="date"
-            name="repairDate"
             id="repairDate"
+            name="repairDate"
             required
-          /><br />
+          />
         </div>
-
         <div class="mb-4">
-          <label class="labelFormat" id="cost">Repair Cost:</label><br />
+          <label class="labelFormat" for="cost">Repair Cost:</label>
           <input
             class="inputForm"
             type="number"
-            name="cost"
+            step="0.01"
+            min="0"
             id="cost"
+            name="cost"
             required
-          /><br />
+          />
         </div>
-
         <div class="mb-4">
-          <label class="labelFormat" id="repairType">Repair Type:</label>
+          <label class="labelFormat" for="repairType">Repair Type:</label>
           <input
             class="inputForm"
             type="text"
-            name="repairType"
             id="repairType"
+            name="repairType"
             required
-          /><br />
+          />
         </div>
-
         <div class="flex items-center justify-between mb-4">
           <input class="btn" type="submit" value="Submit" />
         </div>
@@ -211,8 +274,7 @@
         method="post"
       >
         <div class="mb-4">
-          <label class="labelFormat" id="repairInfoAssetId">Asset ID: </label
-          ><br />
+          <label class="labelFormat" for="repairInfoAssetId">Asset ID:</label>
           <input
             class="inputForm"
             type="number"
@@ -220,16 +282,16 @@
             name="repairInfoAssetId"
             placeholder="Enter Asset ID"
             required
-          /><br />
+          />
         </div>
-
         <div class="mb-4">
-          <label class="labelFormat" id="repairYear">Repair Year</label>
+          <label class="labelFormat" for="repairYear">Repair Year:</label>
           <input
             class="inputForm"
-            type="date"
-            name="repairYear"
+            type="number"
             id="repairYear"
+            name="repairYear"
+            placeholder="Enter Repair Year"
           />
         </div>
         <div class="mb-4">
@@ -237,6 +299,6 @@
         </div>
       </form>
     </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
-  <script src="script.js"></script>
 </html>
