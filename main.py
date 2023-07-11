@@ -75,7 +75,6 @@ def insert_tractor():
 @app.route('/insert_repair', methods=['POST'])
 @login_required
 def insert_repair():
-    check_login()
     repair_id = request.form.get('repairId')
     repair_asset_id = request.form.get('repairAssetID')
     repair_date = request.form.get('repairDate')
@@ -156,10 +155,7 @@ def login():
     # GET request, render the login form
     return render_template('login.html')
 
-def check_login():
-    if 'logged_in' not in session:
-        return False
-    return True
+
 
 @app.route('/logout')
 @login_required
