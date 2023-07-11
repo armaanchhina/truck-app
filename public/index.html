@@ -20,15 +20,15 @@
     />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
+      href="{{ url_for('static', filename='css/styles.css', v='123') }}"
     />
   </head>
   <body>
     <nav
-      class="fixed top-0 w-full z-10 flex items-center justify-between p-6 bg-blue-500"
+      class="fixed top-0 w-full z-10 flex items-center justify-between p-6 bg-blue-500 mb-3"
     >
       <h1 class="relative block font-bold text-center text-white">
-        Tractor Repair Database
+        <a href="/">Tractor Repair Database</a>
       </h1>
       <div class="relative">
         <form class="flex items-center justify-end">
@@ -64,12 +64,23 @@
         <a href="/respone.html" class="mr-6 text-white hover:text-blue-300"
           ><span>About</span></a
         >
-        <a href="#" class="text-white hover:text-blue-300"><span>FAQ</span></a>
-        <a
-          href="/login"
-          class="ml-4 px-4 py-2 bg-white text-blue-500 rounded-md"
-          >Login</a
+        <a href="#" class="text-white hover:text-blue-300 mr-6"
+          ><span>FAQ</span></a
         >
+        <div class="flex justify-start">
+          {% if current_user.is_authenticated %}
+          <span class="ml-2 text-white">Welcome, {{ current_user.id }}</span>
+          <a
+            href="/logout"
+            class="ml-4 px-4 py-2 bg-white text-blue-500 rounded-md"
+            >Logout</a
+          >
+          {% else %}
+          <a href="/login" class="px-4 py-2 bg-white text-blue-500 rounded-md"
+            >Login</a
+          >
+          {% endif %}
+        </div>
       </div>
     </nav>
 
@@ -160,6 +171,17 @@
             type="text"
             placeholder="Model"
             name="model"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="labelFormat" for="model">Make:</label>
+          <input
+            class="inputForm"
+            id="make"
+            type="text"
+            placeholder="Make"
+            name="make"
             required
           />
         </div>
@@ -281,7 +303,6 @@
             id="repairInfoAssetId"
             name="repairInfoAssetId"
             placeholder="Enter Asset ID"
-            required
           />
         </div>
         <div class="mb-4">
@@ -298,7 +319,21 @@
           <input class="btn" type="submit" value="Submit" />
         </div>
       </form>
+
+      <h2 id="get-tractor-info" class="header">Get Tractor Information</h2>
+      <form
+        id="tractorInfo"
+        class="w-full max-w-md"
+        action="/get_tractor_info"
+        method="post"
+      >
+        <div class="mb-4">
+          <input class="btn" type="submit" value="Submit" />
+        </div>
+      </form>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/script.js', v='101') }}"></script>
   </body>
 </html>

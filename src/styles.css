@@ -15,12 +15,11 @@
 }
 
 .header {
-  @apply mb-6 text-2xl text-gray-700;
+  @apply my-6 text-2xl text-gray-700;
 }
 
-
-body{
-    margin: 0;
-    padding: 0;
-    background: url()
+body {
+  margin: 0;
+  padding: 0;
+  background: url();
 }

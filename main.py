@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, session
+from flask import Flask, request, render_template, send_file, session, jsonify
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 
 import pymysql.cursors
@@ -57,12 +57,20 @@ def insert_tractor():
     model = request.form.get('model')
     axle = request.form.get('axle')
     last_tire_replace_date = request.form.get('lastTireReplaceDate')
+    year = request.form.get('year')
     print((licence_plate))
+    axle = request.form.get('axle')
+    if axle not in ['Single', 'Tandem']:
+        return jsonify(status="Error", message="Invalid axle type provided. It should be either 'Single' or 'Tandem'.")
+
 
     # Connect to the database and insert the new tractor information
-    insert_new_tractor_info(asset_id, vin, inspection_date, licence_plate, make, model, axle, last_tire_replace_date, cvip)
+    status, msg = insert_new_tractor_info(asset_id, vin, inspection_date, licence_plate, make, model, axle, last_tire_replace_date, cvip, year)
 
-    return "Tractor information inserted successfully!", 200
+    if status:
+        return jsonify({"message": msg}), 200
+    else:
+        return jsonify({"error": msg}), 400
 
 @app.route('/insert_repair', methods=['POST'])
 @login_required
@@ -73,11 +81,12 @@ def insert_repair():
     repair_date = request.form.get('repairDate')
     cost = request.form.get('cost')
     repair_type = request.form.get('repairType')
-    insert_repair_info(repair_id, repair_asset_id, repair_date, cost, repair_type)
-    # Connect to the database and insert the new repair information
-    # Be sure to handle errors and edge cases
+    status, msg = insert_repair_info(repair_id, repair_asset_id, repair_date, cost, repair_type)
 
-    return "Repair information inserted successfully!", 200
+    if status:
+        return jsonify({"message": msg}), 200
+    else:
+        return jsonify({"error": msg}), 400
 
 @app.route('/get_repair', methods=['POST'])
 @login_required
@@ -87,8 +96,8 @@ def get_repair():
 
     # Connect to the database and get the repair information
     # Be sure to handle errors and edge cases
-    print(repair_info_asset_id)
-    df = get_repair_info(repair_info_asset_id)
+    print(repair_info_asset_id=='')
+    df = get_repair_info(repair_info_asset_id, repair_year)
     output = io.BytesIO()
     print(df)
 
@@ -116,7 +125,6 @@ def get_tractor():
     output.seek(0)
     return send_file(output, attachment_filename='tractor_info.xlsx', as_attachment=True)
 
-    return "Tractor information retrieved successfully!", 200
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

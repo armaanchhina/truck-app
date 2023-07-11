@@ -4,13 +4,15 @@ const options = {
         {title: "Insert Repair Information", id: "insert-repair-info"},
     ],
     get: [
-        {title: "Get Repair Information", id: "get-repair-info"}
-    ]
+        {title: "Get Repair Information", id: "get-repair-info"},
+        {title: "Get Tractor Information", id: "get-tractor-info"},
+    ],
 };
 
 const categorySelect = document.getElementById('categorySelect');
 const optionSelect = document.getElementById('optionSelect');
 const goButton = document.getElementById('goButton');
+const sumbit = document.getElementById
 
 categorySelect.addEventListener('change', function() {
     const selectedCategory = this.value;
@@ -55,3 +57,40 @@ goButton.addEventListener('click', function(){
 
 })
 
+$(document).ready(function(){
+    $('#tractorForm').on('submit', function(e) {
+        e.preventDefault();  // Prevent the form from being submitted normally
+        $.ajax({
+            url: '/insert_tractor',
+            type: 'POST',
+            data: $(this).serialize(),  // Serialize the form data for sending
+            success: function(response) {
+                // This will show an alert box with the message from the server
+                alert(response.message);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle any errors here
+                alert("An error occurred: " + errorThrown);
+            }
+        });
+    });
+
+    $('#repairForm').on('submit', function(e) {
+        e.preventDefault();  // Prevent the form from being submitted normally
+        $.ajax({
+            url: '/insert_repair',
+            type: 'POST',
+            data: $(this).serialize(),  // Serialize the form data for sending
+            success: function(response) {
+                // This will show an alert box with the message from the server
+                alert(response.message);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle any errors here
+                alert("An error occurred: " + errorThrown);
+            }
+        });
+    });
+
+});
+  
