@@ -12,7 +12,6 @@ const options = {
 const categorySelect = document.getElementById('categorySelect');
 const optionSelect = document.getElementById('optionSelect');
 const goButton = document.getElementById('goButton');
-const sumbit = document.getElementById
 
 categorySelect.addEventListener('change', function() {
     const selectedCategory = this.value;
@@ -70,7 +69,12 @@ $(document).ready(function(){
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Handle any errors here
-                alert("An error occurred: " + errorThrown);
+                console.log(jqXHR)
+                if (jqXHR.status == 401) { // If status code is 401
+                    window.location.href = '/login'; // redirect to the login page
+                } else {
+                    alert("An error occurred: " + errorThrown);
+                }
             }
         });
     });

@@ -47,7 +47,6 @@ def connect_to_database():
 @app.route('/insert_tractor', methods=['POST'])
 @login_required
 def insert_tractor():
-    check_login()
     asset_id = request.form.get('assetID')
     vin = request.form.get('vin')
     inspection_date = request.form.get('inspectionDate')
