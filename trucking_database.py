@@ -13,7 +13,7 @@ def get_db_connection():
         user='thriftyuser',
         password=DB_PASSWORD,
         database='truck_database',
-        ssl={"ca": "/Users/armaanchhina/Downloads/DigiCertGlobalRootCA.crt.pem"},
+        ssl={"ca": "DigiCertGlobalRootCA.crt.pem"},
         cursorclass=pymysql.cursors.DictCursor
     )
     return connection
