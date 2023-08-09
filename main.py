@@ -7,8 +7,10 @@ import pandas as pd
 import io
 import os
 app = Flask(__name__, template_folder='public', static_folder='public/static')
-load_dotenv()
-DB_PASSWORD = os.getenv('db_pass')
+# load_dotenv()
+# DB_PASSWORD = os.getenv('db_pass')
+DB_PASSWORD = password = os.environ.get('MYSQL_PASSWORD')
+
 # connection = pymysql.connect(host='localhost',
 #                              user='root',
 #                              database='tractor_database',

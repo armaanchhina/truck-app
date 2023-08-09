@@ -4,8 +4,10 @@ import io
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-DB_PASSWORD = os.getenv('db_pass')
+# load_dotenv()
+# DB_PASSWORD = os.getenv('db_pass')
+DB_PASSWORD = password = os.environ.get('MYSQL_PASSWORD')
+
 
 def get_db_connection():
     connection = pymysql.connect(
