@@ -3,28 +3,25 @@ import pandas as pd
 import io
 
 # Connect to the database
-# connection = pymysql.connect(host='sql9.freemysqlhosting.net',
-#                              user='sql9633871',
-#                              password='TBE2gjkDnF',
-#                              database='sql9633871',
-#                              cursorclass=pymysql.cursors.DictCursor)
-try:
-    connection = pymysql.connect(
-            host='localhost',
-            user='root',
-            database='tractor_database',
-            cursorclass=pymysql.cursors.DictCursor
+connection = pymysql.connect(
+        host='truckingdatabase.mysql.database.azure.com',
+        user='thriftyuser',
+        password="Sobeys123",
+        database='truck_database',
+        ssl={"ca": "/Users/armaanchhina/Downloads/DigiCertGlobalRootCA.crt.pem"},
+        cursorclass=pymysql.cursors.DictCursor
     )
-except Exception as e:
-    print(e)
 
 
 def get_db_connection(username, password):
-    connection = pymysql.connect(host='localhost',
-                                 user=username,
-                                 password=password,
-                                 database='tractor_database',
-                                 cursorclass=pymysql.cursors.DictCursor)
+    connection = pymysql.connect(
+        host='truckingdatabase.mysql.database.azure.com',
+        user='thriftyuser',
+        password="Sobeys123",
+        database='truck_database',
+        ssl={"ca": "/Users/armaanchhina/Downloads/DigiCertGlobalRootCA.crt.pem"},
+        cursorclass=pymysql.cursors.DictCursor
+    )
     return connection
 
 def insert_new_tractor_info(assetId: int, vin: str, inspection_date: str, licence_plate: str, make: str, model: str, axle: str, last_tire_replace_date: str, cvip: str,  year:str):

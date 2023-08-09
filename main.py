@@ -36,9 +36,11 @@ def index():
 # Establish database connection
 def connect_to_database():
     connection = pymysql.connect(
-        host='localhost',
-        user='root',
-        database='tractor_database',
+        host='truckingdatabase.mysql.database.azure.com',
+        user='thriftyuser',
+        password="Sobeys123",
+        database='truck_database',
+        ssl={"ca": "/Users/armaanchhina/Downloads/DigiCertGlobalRootCA.crt.pem"},
         cursorclass=pymysql.cursors.DictCursor
     )
     return connection
