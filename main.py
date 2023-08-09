@@ -1,13 +1,14 @@
 from flask import Flask, request, render_template, send_file, session, jsonify
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
-
+from dotenv import load_dotenv
 import pymysql.cursors
 from trucking_database import insert_new_tractor_info, insert_repair_info, get_repair_info, get_tractor_info
 import pandas as pd
 import io
+import os
 app = Flask(__name__, template_folder='public', static_folder='public/static')
-# app = Flask(__name__, template_folder='public')
-
+load_dotenv()
+DB_PASSWORD = os.getenv('db_pass')
 # connection = pymysql.connect(host='localhost',
 #                              user='root',
 #                              database='tractor_database',
@@ -38,7 +39,7 @@ def connect_to_database():
     connection = pymysql.connect(
         host='truckingdatabase.mysql.database.azure.com',
         user='thriftyuser',
-        password="Sobeys123",
+        password=DB_PASSWORD,
         database='truck_database',
         ssl={"ca": "/Users/armaanchhina/Downloads/DigiCertGlobalRootCA.crt.pem"},
         cursorclass=pymysql.cursors.DictCursor

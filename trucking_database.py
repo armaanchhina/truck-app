@@ -1,23 +1,17 @@
 import pymysql.cursors
 import pandas as pd
 import io
+from dotenv import load_dotenv
+import os
 
-# Connect to the database
-connection = pymysql.connect(
-        host='truckingdatabase.mysql.database.azure.com',
-        user='thriftyuser',
-        password="Sobeys123",
-        database='truck_database',
-        ssl={"ca": "/Users/armaanchhina/Downloads/DigiCertGlobalRootCA.crt.pem"},
-        cursorclass=pymysql.cursors.DictCursor
-    )
+load_dotenv()
+DB_PASSWORD = os.getenv('db_pass')
 
-
-def get_db_connection(username, password):
+def get_db_connection():
     connection = pymysql.connect(
         host='truckingdatabase.mysql.database.azure.com',
         user='thriftyuser',
-        password="Sobeys123",
+        password=DB_PASSWORD,
         database='truck_database',
         ssl={"ca": "/Users/armaanchhina/Downloads/DigiCertGlobalRootCA.crt.pem"},
         cursorclass=pymysql.cursors.DictCursor
@@ -25,6 +19,7 @@ def get_db_connection(username, password):
     return connection
 
 def insert_new_tractor_info(assetId: int, vin: str, inspection_date: str, licence_plate: str, make: str, model: str, axle: str, last_tire_replace_date: str, cvip: str,  year:str):
+    connection = get_db_connection()
     try:
         with connection.cursor() as cursor:
             # Check if the assetId already exists
@@ -49,28 +44,37 @@ def insert_new_tractor_info(assetId: int, vin: str, inspection_date: str, licenc
             
             connection.commit()
             return True, msg
+    except pymysql.MySQLError as e:
+        print(f"Database error occurred: {e}")
+        return False, str(e)
     except Exception as e:
         print(f"An error occurred: {e}")
-        return False, str(e)    
+        return False, str(e)
     finally:
-        # connection.close()
-        pass
+        connection.close()
 
 
 def delete_tractor_info(assetId: int):
+    connection = get_db_connection()
+
     try:
         with connection.cursor() as cursor:
             sql = "DELETE FROM tractor_info WHERE assetId = %s"
             cursor.execute(sql, (assetId,))
             connection.commit()
+    except pymysql.MySQLError as e:
+        print(f"Database error occurred: {e}")
+        return False, str(e)
     except Exception as e:
-        return(f"An error occurred: {e}")
+        print(f"An error occurred: {e}")
+        return False, str(e)
     finally:
-        # connection.close()
-        return
+        connection.close()
 
 def insert_repair_info(repair_id: int, assetId: int, repair_date: str, cost: float, repair_type: str):
     # Connect to the database
+    connection = get_db_connection()
+
     try:
         with connection.cursor() as cursor:
             # First, check if the assetId exists in the tractor_info table
@@ -92,15 +96,19 @@ def insert_repair_info(repair_id: int, assetId: int, repair_date: str, cost: flo
             
             connection.commit()
             return True, msg
+    except pymysql.MySQLError as e:
+        print(f"Database error occurred: {e}")
+        return False, str(e)
     except Exception as e:
         print(f"An error occurred: {e}")
-        return False, str(e)  
+        return False, str(e) 
     finally:
-        # connection.close()
-        pass
+        connection.close()
 
 
 def get_repair_info(assetId: str, repair_year: str):
+    connection = get_db_connection()
+
     try:
         with connection.cursor() as cursor:
             if(assetId!=''):
@@ -120,12 +128,20 @@ def get_repair_info(assetId: str, repair_year: str):
                 cursor.execute(sql)
             result = cursor.fetchall()
             df = pd.DataFrame(result)
+    except pymysql.MySQLError as e:
+        print(f"Database error occurred: {e}")
+        return False, str(e)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False, str(e)
     finally:
-        # connection.close()
+        connection.close()
         return df
     
 
 def get_tractor_info():
+    connection = get_db_connection()
+
     try:
         with connection.cursor() as cursor:
             sql = """SELECT t.*, SUM(r.Cost) as total_repair_costs
@@ -137,8 +153,14 @@ def get_tractor_info():
 
             result = cursor.fetchall()
             df = pd.DataFrame(result)
+    except pymysql.MySQLError as e:
+        print(f"Database error occurred: {e}")
+        return False, str(e)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False, str(e)
     finally:
-        # connection.close()
+        connection.close()
         return df
     
 
