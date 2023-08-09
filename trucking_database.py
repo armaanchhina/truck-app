@@ -8,13 +8,15 @@ import io
 #                              password='TBE2gjkDnF',
 #                              database='sql9633871',
 #                              cursorclass=pymysql.cursors.DictCursor)
-
-connection = pymysql.connect(
-        host='localhost',
-        user='root',
-        database='tractor_database',
-        cursorclass=pymysql.cursors.DictCursor
+try:
+    connection = pymysql.connect(
+            host='localhost',
+            user='root',
+            database='tractor_database',
+            cursorclass=pymysql.cursors.DictCursor
     )
+except Exception as e:
+    print(e)
 
 
 def get_db_connection(username, password):
