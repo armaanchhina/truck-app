@@ -113,7 +113,15 @@ def get_repair_info(assetId: str, repair_year: str):
 
     try:
         with connection.cursor() as cursor:
-            if(assetId!=''):
+            if(assetId!='' and repair_year!=''):
+                sql = """SELECT r.repairId, r.assetId, r.Repair_Date, r.Cost, r.Repair_Type, 
+                t.vin, t.inspection_date, t.licence_plate, t.make, t.model, t.axle, t.last_tire_replace_date
+                FROM Repairs r 
+                JOIN tractor_info t ON r.assetID = t.assetId 
+                WHERE r.assetID  = %s AND EXTRACT(YEAR FROM r.Repair_Date) = %s"""
+
+                cursor.execute(sql, (assetId,repair_year))
+            elif(assetId!=''):
                 # sql = """SELECT r.*, t.* FROM Repairs r 
                 #          JOIN tractor_info t ON r.assetID = t.assetId 
                 #          WHERE r.assetID  = %s"""
@@ -124,6 +132,13 @@ def get_repair_info(assetId: str, repair_year: str):
                 WHERE r.assetID  = %s"""
 
                 cursor.execute(sql, (assetId,))
+            elif(repair_year!=''):
+                sql = """SELECT r.repairId, r.assetId, r.Repair_Date, r.Cost, r.Repair_Type, 
+                t.vin, t.inspection_date, t.licence_plate, t.make, t.model, t.axle, t.last_tire_replace_date
+                FROM Repairs r 
+                JOIN tractor_info t ON r.assetID = t.assetId 
+                WHERE EXTRACT(YEAR FROM r.Repair_Date) = %s"""
+                cursor.execute(sql, (repair_year,))
             else:
                 sql = """SELECT r.*, t.* FROM Repairs r 
                          JOIN tractor_info t ON r.assetID = t.assetId"""
