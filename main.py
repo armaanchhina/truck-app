@@ -136,7 +136,7 @@ def get_tractor():
     df.to_excel(writer, sheet_name='Sheet1', index=False)
     writer.save()
     output.seek(0)
-    return send_file(output, attachment_filename='tractor_info.xlsx', as_attachment=True)
+    return send_file(output, download_name='tractor_info.xlsx', as_attachment=True)
 
 
 @app.route('/login', methods=['GET', 'POST'])
