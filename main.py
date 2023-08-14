@@ -51,6 +51,7 @@ def connect_to_database():
         password=DB_PASSWORD,
         database='truck_database',
         ssl={"ca": "DigiCertGlobalRootCA.crt.pem"},
+        port=3306,
         cursorclass=pymysql.cursors.DictCursor
     )
     return connection
