@@ -7,7 +7,6 @@ import os
 # load_dotenv()
 # DB_PASSWORD = os.getenv('db_pass')
 DB_PASSWORD = password = os.environ.get('MYSQL_PASSWORD')
-DB_PASSWORD = "Sobeys123"
 
 def get_db_connection():
     connection = pymysql.connect(

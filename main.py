@@ -10,12 +10,11 @@ app = Flask(__name__, template_folder='public', static_folder='public/static')
 # load_dotenv()
 # DB_PASSWORD = os.getenv('db_pass')
 DB_PASSWORD = password = os.environ.get('MYSQL_PASSWORD')
-DB_PASSWORD = "Sobeys123"
+# DB_PASSWORD = "Sobeys123"
 # connection = pymysql.connect(host='localhost',
 #                              user='root',
 #                              database='tractor_database',
 #                              cursorclass=pymysql.cursors.DictCursor)
-
 app.secret_key = 'love'
 
 login_manager = LoginManager()
@@ -41,7 +40,6 @@ def unauthorized():
         return jsonify(error="auth required"), 401
     else:
         return redirect(url_for('login'))
-
 @app.route('/')
 def index():
     return render_template("index.html")
