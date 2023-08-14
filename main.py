@@ -118,7 +118,7 @@ def get_repair():
     df.to_excel(writer, sheet_name='Sheet1', index=False)
     writer.save()
     output.seek(0)
-    return send_file(output, attachment_filename='repair_info.xlsx', as_attachment=True)
+    return send_file(output, download_name='repair_info.xlsx', as_attachment=True)
 
     return "Repair information retrieved successfully!", 200
 
