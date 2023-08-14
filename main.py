@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, session, jsonify
+from flask import Flask, request, render_template, send_file, session, jsonify, redirect, url_for
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from dotenv import load_dotenv
 import pymysql.cursors
@@ -32,6 +32,15 @@ def load_user(user_id):
     user = User()
     user.id = user_id
     return user
+
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    # Check if it's an AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify(error="auth required"), 401
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/')
 def index():
@@ -79,6 +88,7 @@ def insert_tractor():
 @app.route('/insert_repair', methods=['POST'])
 @login_required
 def insert_repair():
+    print("hi")
     repair_id = request.form.get('repairId')
     repair_asset_id = request.form.get('repairAssetID')
     repair_date = request.form.get('repairDate')

@@ -9,6 +9,8 @@ const options = {
     ],
 };
 
+
+
 const categorySelect = document.getElementById('categorySelect');
 const optionSelect = document.getElementById('optionSelect');
 const goButton = document.getElementById('goButton');
@@ -80,6 +82,7 @@ $(document).ready(function(){
     });
 
     $('#repairForm').on('submit', function(e) {
+        console.log("repairForm submit event triggered");  // Debug log
         e.preventDefault();  // Prevent the form from being submitted normally
         $.ajax({
             url: '/insert_repair',
@@ -91,7 +94,12 @@ $(document).ready(function(){
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Handle any errors here
-                alert("An error occurred: " + errorThrown);
+                console.log(jqXHR)
+                if (jqXHR.status == 401) { // If status code is 401
+                    window.location.href = '/login'; // redirect to the login page
+                } else {
+                    alert("An error occurred: " + errorThrown);
+                }
             }
         });
     });
