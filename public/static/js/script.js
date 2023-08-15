@@ -7,6 +7,9 @@ const options = {
         {title: "Get Repair Information", id: "get-repair-info"},
         {title: "Get Tractor Information", id: "get-tractor-info"},
     ],
+    delete: [
+        {title: "Delete Repair Information", id: "delete-tractor-info"},
+    ]
 };
 
 
@@ -86,6 +89,28 @@ $(document).ready(function(){
         e.preventDefault();  // Prevent the form from being submitted normally
         $.ajax({
             url: '/insert_repair',
+            type: 'POST',
+            data: $(this).serialize(),  // Serialize the form data for sending
+            success: function(response) {
+                // This will show an alert box with the message from the server
+                alert(response.message);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle any errors here
+                console.log(jqXHR)
+                if (jqXHR.status == 401) { // If status code is 401
+                    window.location.href = '/login'; // redirect to the login page
+                } else {
+                    alert("An error occurred: " + errorThrown);
+                }
+            }
+        });
+    });
+
+    $('#deleteForm').on('submit', function(e) {
+        e.preventDefault();  // Prevent the form from being submitted normally
+        $.ajax({
+            url: '/delete_tractor_info',
             type: 'POST',
             data: $(this).serialize(),  // Serialize the form data for sending
             success: function(response) {

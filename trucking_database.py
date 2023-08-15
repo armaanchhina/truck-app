@@ -41,7 +41,7 @@ def insert_new_tractor_info(assetId: int, vin: str, inspection_date: str, licenc
                 # If the assetId does not exist, perform an INSERT
                 sql = "INSERT INTO tractor_info (assetId, vin, inspection_date, licence_plate, make, model, axle, last_tire_replace_date, cvip_date, year) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
                 cursor.execute(sql, (assetId, vin, inspection_date, licence_plate, make, model, axle, last_tire_replace_date, cvip, year))
-                msg = f"Tractor information inserted successfully for {assetId}!"
+                msg = f"Tractor information inserted successfully for assetId: {assetId}!"
             
             connection.commit()
             return True, msg
@@ -93,7 +93,7 @@ def insert_repair_info(repair_id: int, assetId: int, repair_date: str, cost: flo
             # Now you can insert into the Repairs table
             sql = "INSERT INTO Repairs (repairId, assetId, Repair_Date, Cost, Repair_Type) VALUES (%s, %s, %s, %s, %s)"
             cursor.execute(sql, (repair_id, assetId, repair_date, cost, repair_type))
-            msg = f"Repair information inserted successfully for {assetId}!"
+            msg = f"Repair information inserted successfully for assetId: {assetId}!"
             
             connection.commit()
             return True, msg
@@ -189,6 +189,31 @@ def get_tractor_info(assetId: str):
     finally:
         connection.close()
         return df
+    
+
+def delete_tractor(assetId: str):
+    # Connect to the database
+    connection = get_db_connection()
+
+    try:
+        with connection.cursor() as cursor:
+            # First, check if the assetId exists in the tractor_info table
+            sql = "DELETE FROM tractor_info WHERE assetId = %s"
+            cursor.execute(sql, (assetId,))
+
+ 
+            msg = f"Deleted tractor information successfully for assetId: {assetId}!"
+            
+            connection.commit()
+            return True, msg
+    except pymysql.MySQLError as e:
+        print(f"Database error occurred: {e}")
+        return False, str(e)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False, str(e) 
+    finally:
+        connection.close()
     
 
 

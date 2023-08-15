@@ -2,13 +2,12 @@ from flask import Flask, request, render_template, send_file, session, jsonify, 
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from dotenv import load_dotenv
 import pymysql.cursors
-from trucking_database import insert_new_tractor_info, insert_repair_info, get_repair_info, get_tractor_info
+from trucking_database import insert_new_tractor_info, insert_repair_info, get_repair_info, get_tractor_info, delete_tractor
 import pandas as pd
 import io
 import os
 app = Flask(__name__, template_folder='public', static_folder='public/static')
 DB_PASSWORD = password = os.environ.get('MYSQL_PASSWORD')
-
 app.secret_key = 'love'
 
 login_manager = LoginManager()
@@ -210,6 +209,20 @@ def get_tractor():
     return send_file(output, download_name='tractor_info.xlsx', as_attachment=True)
 
 
+@app.route('/delete_tractor_info', methods=['POST'])
+@login_required  # Ensure the user is logged in before accessing this route
+def delete_tractor_info():
+    tractor_info_asset_id = request.form.get('tractorDeleteAssetId')
+    status, msg = delete_tractor(tractor_info_asset_id)
+    
+    # If the deletion was successful (status is True)
+    if status:
+        # Return a success message in JSON format with a 200 HTTP status code
+        return jsonify({"message": msg}), 200
+    else:
+        # If there was an error (status is False)
+        # Return an error message in JSON format with a 400 HTTP status code
+        return jsonify({"error": msg}), 400
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

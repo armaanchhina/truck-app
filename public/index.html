@@ -341,9 +341,35 @@
           <input class="btn" type="submit" value="Submit" />
         </div>
       </form>
+      <h2 id="delete-tractor-info" class="header">
+        Delete Tractor Information
+      </h2>
+      <form
+        id="deleteForm"
+        action="/delete_tractor_info"
+        class="w-full max-w-md"
+        method="post"
+      >
+        <div class="mb-4">
+          <label class="labelFormat" for="tractorDeleteAssetId"
+            >Asset ID:
+          </label>
+          <input
+            class="inputForm"
+            type="number"
+            id="tractorDeleteAssetId"
+            name="tractorDeleteAssetId"
+            placeholder="Enter Asset ID (All repairs will be deleted associated with assetID)"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <input class="btn" type="submit" value="Submit" />
+        </div>
+      </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="{{ url_for('static', filename='js/script.js', v='106') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js', v='110') }}"></script>
   </body>
 </html>
