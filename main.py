@@ -188,9 +188,8 @@ def get_tractor():
     """
     Endpoint to fetch tractor information from the database and return it as an Excel file.
     """
-    # Retrieve the asset ID
+     # Retrieve the asset ID
     tractor_info_asset_id = request.form.get('tractorInfoAssetId')
-    
     # Connect to the database and retrieve the tractor information
     df = get_tractor_info(tractor_info_asset_id)
 
