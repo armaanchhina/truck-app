@@ -155,17 +155,28 @@ def get_repair_info(assetId: str, repair_year: str):
         return df
     
 
-def get_tractor_info():
+def get_tractor_info(assetId: str):
     connection = get_db_connection()
 
     try:
         with connection.cursor() as cursor:
-            sql = """SELECT t.*, SUM(r.Cost) as total_repair_costs
-            FROM tractor_info t 
-            LEFT JOIN Repairs r ON t.assetId = r.assetId 
-            GROUP BY t.assetId"""
+            if(assetId==''):
+                sql = """SELECT t.*, SUM(r.Cost) as total_repair_costs
+                FROM tractor_info t 
+                LEFT JOIN Repairs r ON t.assetId = r.assetId 
+                GROUP BY t.assetId"""
+                cursor.execute(sql)
 
-            cursor.execute(sql)
+            else:
+                sql = """SELECT t.*, SUM(r.Cost) as total_repair_costs
+                FROM tractor_info t 
+                LEFT JOIN Repairs r ON t.assetId = r.assetId 
+                WHERE t.assetId = %s
+                GROUP BY t.assetId
+                """
+                cursor.execute(sql, (assetId,))
+
+
 
             result = cursor.fetchall()
             df = pd.DataFrame(result)
