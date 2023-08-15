@@ -190,6 +190,7 @@ def get_tractor():
     """
     # Retrieve the asset ID
     tractor_info_asset_id = request.form.get('tractorInfoAssetId')
+    
     # Connect to the database and retrieve the tractor information
     df = get_tractor_info(tractor_info_asset_id)
 
