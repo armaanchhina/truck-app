@@ -3,6 +3,7 @@ import pandas as pd
 import io
 from dotenv import load_dotenv
 import os
+from typing import Tuple, Any, Union
 
 # load_dotenv()
 # DB_PASSWORD = os.getenv('db_pass')
@@ -19,8 +20,6 @@ def get_db_connection():
     )
     return connection
 
-import pymysql
-from typing import Tuple, Any
 
 def insert_new_tractor_info(
     assetId: int, vin: str, inspection_date: str, licence_plate: str,
@@ -309,7 +308,7 @@ def get_tractor_info(assetId: str = "") -> pd.DataFrame:
 def delete_tractor(assetId: str) -> (bool, str):
     """
     Deletes tractor information from the database for the provided asset ID.
-    
+
     Parameters:
     - assetId: ID of the tractor to delete.
     Returns:
